@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="SneakerPeeker.Mobile.MakePredictionPage"
+	Title="{Binding Title}">
+	<ContentPage.Content>
+		<Grid Margin="10">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<Button Text="Take Picture"
+				Command="{Binding TakePictureCommand}"
+				VerticalOptions="Center"
+				HorizontalOptions="Center"
+				WidthRequest="200"
+				HeightRequest="300" />
+
+			<Image Source="{Binding ImageSource}"
+				IsVisible="{Binding HasImageSource}"
+				Aspect="AspectFit"
+				WidthRequest="200"
+				HeightRequest="300" />
+
+			<StackLayout Orientation="Horizontal"
+				HorizontalOptions="Center"
+				Grid.Row="1" Spacing="10">
+
+				<ActivityIndicator IsRunning="{Binding IsBusy}" />
+				<Label Text="{Binding Status}"
+					Grid.Row="1"
+					Margin="20"
+					VerticalOptions="Center"
+					HorizontalTextAlignment="Center" />
+			</StackLayout>
+
+			<Button Text="Make Prediction"
+				Command="{Binding MakePredictionCommand}"
+				Grid.Row="2" />
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>
