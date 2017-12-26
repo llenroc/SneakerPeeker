@@ -32,6 +32,11 @@ namespace SneakerPeeker.Mobile
 			set { SetProperty(ref _imageSource, value); OnPropertyChanged(nameof(HasImageSource)); }
 		}
 
+		public MakePredictionViewModel()
+		{
+			Title = "Make Prediction";
+		}
+
 		#region Take/Upload Picture
 
 		async void TakePicture()
@@ -83,13 +88,38 @@ namespace SneakerPeeker.Mobile
 
 		async void MakePrediction()
 		{
+			if(IsBusy)
+				return;
+			
 			if(_imageStoreUrl == null)
 			{
 				Status = "Please take a picture first";
 				return;
 			}
 
-			var result = await DataStore.Instance.MakePredictionAsync(null);
+			var prediction = new Prediction
+			{
+				ProjectId = Keys.CustomVisionProjectId,
+				TrainingId = Keys.CustomVisionTrainingId,
+			 	ImageUrl = _imageStoreUrl
+			};
+
+			IsBusy = true;
+			Status = "Analyzing picture...";
+
+			var result = await DataStore.Instance.MakePredictionAsync(prediction);
+
+			if(result == null)
+				return;
+
+			var msg = "";
+			foreach(var tag in result.Results)
+			{
+				msg += $"{tag.Key}, ";
+			}
+
+			Status = msg.TrimEnd(',').Trim();
+			IsBusy = false;
 		}
 
 		#endregion
