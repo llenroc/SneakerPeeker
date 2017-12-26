@@ -32,6 +32,11 @@ namespace SneakerPeeker.Mobile
 			set { SetProperty(ref _imageSource, value); OnPropertyChanged(nameof(HasImageSource)); }
 		}
 
+		public MakePredictionViewModel()
+		{
+			Title = "Make Prediction";
+		}
+
 		#region Take/Upload Picture
 
 		async void TakePicture()
@@ -83,6 +88,9 @@ namespace SneakerPeeker.Mobile
 
 		async void MakePrediction()
 		{
+			if(IsBusy)
+				return;
+			
 			if(_imageStoreUrl == null)
 			{
 				Status = "Please take a picture first";

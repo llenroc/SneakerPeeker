@@ -6,12 +6,13 @@
 	<ContentPage.Content>
 		<Grid Margin="10">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="*" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
 			<Button Text="Take Picture"
+				Margin="30"
 				Command="{Binding TakePictureCommand}"
 				VerticalOptions="Center"
 				HorizontalOptions="Center"
@@ -20,6 +21,7 @@
 
 			<Image Source="{Binding ImageSource}"
 				IsVisible="{Binding HasImageSource}"
+				Margin="30"
 				Aspect="AspectFill"
 				HorizontalOptions="Center"
 				VerticalOptions="Center"
