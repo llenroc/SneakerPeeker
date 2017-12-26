@@ -20,7 +20,9 @@
 
 			<Image Source="{Binding ImageSource}"
 				IsVisible="{Binding HasImageSource}"
-				Aspect="AspectFit"
+				Aspect="AspectFill"
+				HorizontalOptions="Center"
+				VerticalOptions="Center"
 				WidthRequest="200"
 				HeightRequest="300" />
 

@@ -89,7 +89,29 @@ namespace SneakerPeeker.Mobile
 				return;
 			}
 
-			var result = await DataStore.Instance.MakePredictionAsync(null);
+			var prediction = new Prediction
+			{
+				ProjectId = Keys.CustomVisionProjectId,
+				TrainingId = Keys.CustomVisionTrainingId,
+			 	ImageUrl = _imageStoreUrl
+			};
+
+			IsBusy = true;
+			Status = "Analyzing picture...";
+
+			var result = await DataStore.Instance.MakePredictionAsync(prediction);
+
+			if(result == null)
+				return;
+
+			var msg = "";
+			foreach(var tag in result.Results)
+			{
+				msg += $"{tag.Key}, ";
+			}
+
+			Status = msg.TrimEnd(',').Trim();
+			IsBusy = false;
 		}
 
 		#endregion
